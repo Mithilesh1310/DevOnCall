@@ -1,0 +1,20 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Install dependencies required for building native modules if needed
+RUN apk add --no-libc6-compat python3 make g++
+
+COPY apps/web/package*.json ./apps/web/
+WORKDIR /app/apps/web
+
+RUN npm install
+
+COPY apps/web ./
+
+EXPOSE 3000
+
+ENV PORT 3000
+ENV HOSTNAME "0.0.0.0"
+
+CMD ["npm", "run", "dev"]
