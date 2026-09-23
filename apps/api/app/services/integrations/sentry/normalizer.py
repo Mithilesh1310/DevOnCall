@@ -68,7 +68,7 @@ class SentryNormalizer:
         exceptions = event.get("exception", {}).get("values", [])
         if exceptions and isinstance(exceptions, list) and len(exceptions) > 0:
             exc = exceptions[-1]
-            error_type = exc.get("type", error_type) + "_ControlledBug"
+            error_type = exc.get("type", error_type)
             error_message = exc.get("value", error_message)
         elif "title" in issue:
             error_type = issue.get("type", "SentryError")
